@@ -1,0 +1,50 @@
+import pandas as pd
+import numpy as np
+
+df = pd.read_csv('dataset_Facebook .csv',sep=';')
+
+df
+
+df.describe()
+
+df.shape
+
+# a. Creating Subset
+
+df1 = df[['Page total likes','Category','Post Month','Post Weekday']].loc[0:15]
+df1
+
+df2 = df[['Page total likes','Category','Post Month','Post Weekday']].loc[16:30]
+df2
+
+df3 = df[['Page total likes','Category','Post Month','Post Weekday']].loc[16:30]
+df3
+
+
+# b. Merge Data 
+merging=pd.concat([df1,df2,df3])
+merging #Concatenate pandas objects along a particular axis
+
+
+# c. Sort the Data
+
+sorted = df.sort_values('Page total likes',ascending=False)
+sorted
+
+sorted = merging.sort_values('Page total likes',ascending=True)
+sorted
+
+# d. Transpose Data
+trans=df.transpose() #df.T
+trans
+#the rows and columns have been swapped.
+#The column names in the original DataFrame become the row names in the transposed DataFrame, and vice versa.
+
+
+# e. Shape and Reshape Data 
+shaping = df.shape
+shaping
+
+# reshape
+pivot_table=pd.pivot_table(df,index=['Type','Paid'],values='like') #Used for aggregation and grouping to find analysis
+pivot_table
