@@ -68,7 +68,7 @@ regr = linear_model.LinearRegression()
 
 ## Fit the Model and Display Regression Coefficients
 
-model = reg.fit(x_train,y_train)
+model = regr.fit(x_train,y_train)
 print(model.intercept_)
 print(model.coef_)
 
