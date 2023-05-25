@@ -1,0 +1,79 @@
+import pandas as pd
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+import math
+
+## Loading Data Set 
+
+df = pd.read_csv('airquality.csv')
+
+df.head()
+
+df["Ozone"] = df["Ozone"].fillna(37)
+df["Solar.R"] = df["Solar.R"].fillna(137)
+df.drop('Unnamed: 0',inplace=True,axis = 1)
+
+df
+
+df.isnull().sum()
+
+p = df['Month'].value_counts()
+
+
+mean_of_cols = [df['Solar.R'].mean(),df['Ozone'].mean(),df['Temp'].mean(),df['Wind'].mean()]
+
+## Plot the PIE CHART
+
+plt.pie([df["Ozone"].mean(),df["Solar.R"].mean(),df["Wind"].mean(),df["Temp"].mean()], autopct="%1.2f%%", explode=[0.01,0.01,0.01,0.01], labels=["Ozone", "Solar.R", "Wind", "Temp"])
+plt.plot()
+
+
+## Plot The BAR
+
+plt.title('Month Wise Temperature')
+sns.barplot(data = df,x='Month',y ='Temp')
+
+## Plot the BOX
+
+plt.title('Box Plot for Temp vs Month')
+sns.boxenplot(data=df,x = 'Month',y = 'Temp')
+
+## Visualize LINE GRAPH
+
+plt.title('Temperature vs Ozone')
+sns.lineplot(data=df,x='Ozone',y='Temp')
+
+## Visualize SCATTERPLOT
+
+plt.title('Scatterplot showing that Solar.R with Temp')
+sns.scatterplot(data=df,x='Temp',y='Solar.R',hue='Temp',markers=3)
+
+## Visualize PAIRPLOT
+sns.pairplot(data=df)
+
+## Visualize HEATMAP
+plt.title('Heatmap')
+sns.heatmap(df.corr(),linecolor='white',linewidths=2,annot=True)
+
+
+## Visualize HISTOGRAM
+plt.title('Histogram')
+sns.histplot(data=df,x='Temp',bins=30,hue='Month')
+
+## WORDCLOUD
+
+from wordcloud import WordCloud, STOPWORDS
+stopwords = set(STOPWORDS)
+
+text = """ Vision is the Power that sustains it may ne , an importantn aspect of the life where the subjects are boring and not to study well while exam coming """
+
+wordclod = WordCloud(width=1000,height=1000,
+                    background_color='white',
+                    stopwords = stopwords,
+                    min_font_size = 10).generate(text)
+
+plt.imshow(wordclod)
+plt.axis("off")
+plt.tight_layout(pad = 0)
+plt.show()
