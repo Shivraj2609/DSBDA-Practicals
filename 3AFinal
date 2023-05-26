@@ -1,0 +1,17 @@
+from bs4 import BeautifulSoup
+
+import requests
+
+URL = "https://www.amazon.in/boAt-Display-Multiple-Monitoring-Charcoal/product-reviews/B09MQSCJQ1/ref=cm_cr_dp_d_show_all_btm?ie=UTF8&reviewerType=all_reviews"
+
+data = requests.get(URL)
+
+soup = BeautifulSoup(data.content,"html.parser")
+
+# print(soup.prettify())
+
+names = soup.find_all("span", {"class":"a-profile-name"})
+
+for i in names:
+
+    print(i.get_text())
